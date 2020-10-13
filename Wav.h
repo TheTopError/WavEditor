@@ -14,24 +14,25 @@ public:
 	int chunkSize; //Dateilänge in Bytes - 8 (-8, weil ChunkID und ChunkSize nicht miteinberechnet werden)
 
 	//Subchunk-1 - Beginnt mit "fmt " und beschreibt sound data format
-	short formatSize; //Anzehl der Bytes vom Rest des subchunks
-	short audioFormat; //Sollte 1 sein (Linear Quantization, no compression)
-	short channels; //1 Mono, 2 Stereo
+	int formatSize; //Anzehl der Bytes vom Rest des subchunks
+	uint8_t audioFormat; //Sollte 1 sein (Linear Quantization, no compression)
+	uint8_t channels; //1 Mono, 2 Stereo
 	int sampleRate; // Rate in der ein Analogsignal gemessen und in ein Signal umgewandelt wird (hz)
 	
 	int bytePerSec; //sampleRate * channels * bitsPerSample/8
 	int blockAlign; //Nummer von einem Sample mit allen Channeln abgerundet: blockAlign = channels * ((sampleRate + 7) / 8)
-	int bitsPerSample;
+	uint8_t bitsPerSample;
 
 	//Zwei weitere Werte falls PCM vorhanden
-    //Bei stereio wird erst der linke, dann der rechte kanal gespeichert.
+    //Bei stereo wird erst der linke, dann der rechte kanal gespeichert. 12 12 12 12
+
+	//SampleRate: X
+	//sampleData[X]/0xff: Y
 
 	//Subchunk-2 - Beginnt mit "data"
 	int dataSize; //Anzahl der Bytes vom Rest des Subchunks, kann man mit NumSamples * NumChannels * BitsPerSample/8 errechnen
 
-	//sampledata
-
-	unsigned char* sampleData;
+	uint8_t* sampleData;
 
 
 
