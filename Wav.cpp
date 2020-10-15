@@ -50,13 +50,27 @@ void Wav::ReadFromFile(const char* path)
             //-----Data-----
             file.read((char*)&dataSize, 4);
 
-            sampleData = new uint8_t[dataSize];
-            for (int i = 0; i < dataSize; i++)
+            if (bitsPerSample == 8)
             {
-                file.read((char*)&sampleData[i], 1);
-                //Access by casting to int or float
+                sampleData = new float[dataSize];
+                for (int i = 0; i < dataSize; i++)
+                {
+                    uint8_t temp = 0;
+                    file.read((char*)&temp, 1);
+                    sampleData[i] = (float)temp / 0xff;
+                }
             }
-
+            else
+            {
+                dataSize /= 2;
+                sampleData = new float[dataSize];
+                for (int i = 0; i < dataSize; i++)
+                {
+                    uint16_t temp = 0;
+                    file.read((char*)&temp, 2);
+                    sampleData[i] = (float)temp / 0xffff;
+                }
+            }
         }
         else
         {
@@ -70,6 +84,19 @@ void Wav::ReadFromFile(const char* path)
     }
 
     file.close();
+}
+
+void Wav::Clear()
+{
+    chunkSize = 0;
+    formatSize = 0;
+    audioFormat = 0;
+    channels = 0;
+    sampleRate = 0;
+    bytePerSec = 0;
+    blockAlign = 0;
+    bitsPerSample = 0;
+    sampleData = nullptr;
 }
 
 std::string Wav::GetValues()

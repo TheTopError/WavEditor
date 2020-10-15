@@ -2,6 +2,8 @@
 #include <stdint.h>
 #include <fstream>
 #include <string>
+#include <cstring>
+
 //http://soundfile.sapp.org/doc/WaveFormat/
 
 class Wav
@@ -32,7 +34,7 @@ public:
 	//Subchunk-2 - Beginnt mit "data"
 	int dataSize; //Anzahl der Bytes vom Rest des Subchunks, kann man mit NumSamples * NumChannels * BitsPerSample/8 errechnen
 
-	uint8_t* sampleData;
+	float* sampleData = nullptr;
 
 
 
@@ -50,6 +52,7 @@ public:
 	void PlayWav();
 	void WriteToFile();
 	void ReadFromFile(const char* path = "sine.wav");
+	void Clear();
 	std::string GetValues();
 
 private:
