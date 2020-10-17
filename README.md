@@ -1,3 +1,5 @@
-Wav file Editor/Player in c++, kann bisher aber nur die Information der Datei lesen und ausgeben
+Wav file Editor/Player in c++.
+
+On hold bis ich Lust habe, weiter an der GUI zu arbeiten.
 
 wxWidgets für GUI
