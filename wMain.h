@@ -2,7 +2,6 @@
 
 #include "wx/wx.h";
 
-#include "Wav.h"
 
 
 class wMain : public wxFrame //GUI implementation
@@ -13,7 +12,6 @@ public:
 	~wMain();
 
 public:
-	Wav* wav;
 
 	wxMenuBar* menuBar;
 	wxMenu* fileMenu;
@@ -24,6 +22,9 @@ public:
 
 	wxFileDialog* openDialog;
 
+	wxBoxSizer* sizer;
+	wxPanel* wavePanel;
+
 
 	wxButton* button1 = nullptr;
 	wxButton* button2 = nullptr;
@@ -32,6 +33,10 @@ public:
 	wxStaticText* textbox = nullptr;
 
 	void OnButtonClicked(wxCommandEvent& evt);
+
+	void OnPaint(wxPaintEvent& event);
+	void OnResize(wxSizeEvent& event);
+
 
 	enum
 	{
